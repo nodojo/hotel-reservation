@@ -4,6 +4,7 @@ import (
 	"flag"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/nodojo/hotel-reservation/api"
 )
 
 func main() {
@@ -14,16 +15,8 @@ func main() {
 	app := fiber.New()
 	apiv1 := app.Group("/api/v1")
 
-	app.Get("/test", handleTest)
-	apiv1.Get("/user", handleUser)
+	apiv1.Get("/user", api.HandleGetUser)
+	apiv1.Get("/user/:id", api.HandleGetUsers)
 
 	app.Listen(*listenAddr)
-}
-
-func handleTest(c *fiber.Ctx) error {
-	return c.JSON(map[string]string{"msg": "I am working..."})
-}
-
-func handleUser(c *fiber.Ctx) error {
-	return c.JSON(map[string]string{"user": "John Doe"})
 }
